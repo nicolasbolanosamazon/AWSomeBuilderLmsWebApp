@@ -11,7 +11,7 @@ function App() {
       <Routes>
           <Route path='/'element={<Home/>}/>
           <Route path='/signIn' element={() => { 
-            window.location.href = 'https://octanklmsuserportal.auth.us-east-1.amazoncognito.com/login?client_id=5nnbtiev29t8h3cujhssiflctv&response_type=code&scope=aws.cognito.signin.user.admin+email+openid&redirect_uri=https://main.d2p5zbpxldnu9d.amplifyapp.com/'; 
+            window.location.href = 'https://octanklmsuserportal.auth.us-east-1.amazoncognito.com/login?client_id=5nnbtiev29t8h3cujhssiflctv&response_type=token&scope=aws.cognito.signin.user.admin+email+openid&redirect_uri=https://main.d2p5zbpxldnu9d.amplifyapp.com/'; 
             return null;
           }}/>
           <Route path='/welcome/' element={<RedirectPage/>}/>

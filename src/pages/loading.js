@@ -1,12 +1,22 @@
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useLocation,useNavigate  } from "react-router-dom";
+import { Route, Navigate } from 'react-router';
 
-var qs = require('qs');
 
 const RedirectPage = ()=>{
     const location = useLocation();
     const history = useNavigate();
+    const accessToken = new URLSearchParams(location.hash).get('access_token');
+    const idToken = new URLSearchParams(location.hash).get('id_token');
+    console.log('id token is:');
+    console.log(idToken);
+    console.log('access token is:');
+    console.log(accessToken);
+    localStorage.setItem('id_token',idToken);
+    localStorage.setItem('access_token',accessToken);
+    
+    /*
     const authCode = new URLSearchParams(location.search).get('code');
     if(authCode){
       fetch('https://octanklmsuserportal.auth.us-east-1.amazoncognito.com/oauth2/token',{
@@ -34,13 +44,12 @@ const RedirectPage = ()=>{
             history.replace('/')
           });
     }
+    */
     return(
-        <div>
-            <h3>
-                Loading ....
-            </h3>
-        </div>
+            <Navigate to="/" />
+        
     )
+    
 }
 
 export default RedirectPage;
