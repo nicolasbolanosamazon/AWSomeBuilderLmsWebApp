@@ -8,7 +8,7 @@ const Home = () => {
         justifyContent: 'center',
         alignItems: 'center',
         height: '90vh',
-        backgroundImage:`url(${process.env.PUBLIC_URL+ "/background.jpeg"})`,
+        backgroundImage:`url(https://wallpapercave.com/wp/wp2036897.jpg)`,
         backgroundSize: 'contain',
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center',
