@@ -65,11 +65,13 @@ class TenantDetailComponent extends React.Component{
         }
         ).then(() =>{
             let url =  'https://h0e50dpirb.execute-api.us-east-1.amazonaws.com/dev/user_manager/get_users/' + this.state.id
+            let token = 'Bearer ' + localStorage.getItem('id_token')
             fetch(url, {
                 method: "GET",
                 headers: {
-                  Accept: "application/json",
-                  "Content-Type": "application/json"
+                    "Accept": "application/json",
+                    "Content-Type": "application/json",
+                    "Authorization": token
                 }
               })
               .then((res) => res.json())
@@ -152,11 +154,13 @@ class TenantDetailComponent extends React.Component{
             editTenant: false
         })
         let url =  'https://h0e50dpirb.execute-api.us-east-1.amazonaws.com/dev/tenant_managment/update_tenant'
+        let token = 'Bearer ' + localStorage.getItem('id_token')
         fetch(url, {
             method: "POST",
             headers: {
               "Accept": "application/json",
-              "Content-Type": "application/json"
+              "Content-Type": "application/json",
+              "Authorization": token
             },
             body: JSON.stringify({
                 tenant_id: this.state.id,
@@ -176,11 +180,13 @@ class TenantDetailComponent extends React.Component{
             isLoaded: false
         })
         let url =  'https://h0e50dpirb.execute-api.us-east-1.amazonaws.com/dev/user_manager/create_user'
+        let token = 'Bearer ' + localStorage.getItem('id_token')
         fetch(url, {
             method: "POST",
             headers: {
               "Accept": "application/json",
-              "Content-Type": "application/json"
+              "Content-Type": "application/json",
+              "Authorization": token
             },
             body: JSON.stringify({
                 tenant_id : this.state.id,
