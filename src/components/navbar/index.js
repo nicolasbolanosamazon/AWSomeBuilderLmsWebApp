@@ -37,11 +37,14 @@ class NavBar extends React.Component {
                     </NavLink>
                     <Bars/>
                     <NavMenu>
-                        <NavLink to='/about'>
+                        <NavLink to='/student'>
                             Student Module
                         </NavLink>
-                        <NavLink to='/services'>
+                        <NavLink to='/teacher'>
                             Teachers Module
+                        </NavLink>
+                        <NavLink to='/admin'>
+                            Admin Module
                         </NavLink>
                     </NavMenu>
                     <NavBtn>

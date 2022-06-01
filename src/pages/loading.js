@@ -6,9 +6,8 @@ import { Route, Navigate } from 'react-router';
 
 const RedirectPage = ()=>{
     const location = useLocation();
-    const history = useNavigate();
     const accessToken = new URLSearchParams(location.hash).get('access_token');
-    const idToken = new URLSearchParams(location.hash).get('id_token');
+    const idToken = new URLSearchParams(location.hash).get('#id_token');
     console.log('id token is:');
     console.log(idToken);
     console.log('access token is:');
