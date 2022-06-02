@@ -26,11 +26,13 @@ class TenantDetailComponent extends React.Component{
 
     getData() {
         let url =  'https://h0e50dpirb.execute-api.us-east-1.amazonaws.com/dev/tenant_managment/get_tenant/' + this.state.id
+        let token = 'Bearer ' + localStorage.getItem('id_token')
         return fetch(url, {
           method: "GET",
           headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json"
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+            "Authorization": token
           }
         })
         .then((res) => res.json())
