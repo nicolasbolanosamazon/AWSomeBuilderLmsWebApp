@@ -12,12 +12,17 @@ class AdminComponent extends React.Component{
             name: '',
             description: ''
         };
-    
+        let tokenDecoded = null
         this.getData = this.getData.bind(this);
+        
     }
 
     componentDidMount() {
+        if(localStorage.getItem('id_token') != null){
+            this.tokenDecoded = this.parseJwt(localStorage.getItem('id_token'))
+        }
         this.getData();
+        
     }
 
     getData() {
@@ -91,7 +96,23 @@ class AdminComponent extends React.Component{
         this.props.navigate('/tenantDetail', { state : {tenantId: id}})
     }
 
+    parseJwt (token) {
+        var base64Url = token.split('.')[1];
+        var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+    
+        return JSON.parse(jsonPayload);
+    };
+
     render(){
+        if (this.tokenDecoded == null){
+            return <div>You must be logged in to access this page</div>
+        }
+        if(this.tokenDecoded['custom:tenant_user_role'] != 'Admin'){
+            return <div>This user doesn't have an Admin role. Access Denied</div>
+        }
         const { error, isLoaded, items } = this.state;
         if (error) {
             return <div>Error: {error.message}</div>;

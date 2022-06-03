@@ -6,6 +6,8 @@ import Home from './pages';
 import RedirectPage from './pages/loading';
 import Admin from './pages/admin';
 import TenantDetail from './pages/tenantDetail';
+import Student from './pages/student';
+import Teacher from './pages/teacher';
 function App() {
   return (
     <Router>
@@ -19,6 +21,8 @@ function App() {
           <Route path='/admin' element={<Admin/>}/>
           <Route path='/welcome/' element={<RedirectPage/>}/>
           <Route path='/tenantDetail' element={<TenantDetail/>}/>
+          <Route path='/student' element={<Student/>}/>
+          <Route path='/teacher' element={<Teacher/>}/>
       </Routes>
     </Router>
   );
