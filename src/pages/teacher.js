@@ -8,7 +8,8 @@ class TeacherComponent extends React.Component{
             error: undefined,
             isLoaded: false,
             courses: [],
-            tokenDecoded: undefined
+            tokenDecoded: undefined,
+            newCourse: undefined
         };
     }
 
@@ -37,7 +38,11 @@ class TeacherComponent extends React.Component{
           (result) => {
               this.setState({
               isLoaded: true,
-              courses: result['Courses']
+              courses: result['Courses'],
+              newCourse: {
+                courseName: '',
+                courseDescription: ''
+              }
               });
           },
           (error) => {
@@ -47,6 +52,51 @@ class TeacherComponent extends React.Component{
               });
           }
           );
+    }
+
+    handleSubmit = (event) => {
+        event.preventDefault()
+        this.setState({
+            isLoaded: false
+        })
+        let url = 'https://h0e50dpirb.execute-api.us-east-1.amazonaws.com/dev/lms/course_manager/create_course'
+        let token = 'Bearer ' + localStorage.getItem('id_token')
+        fetch(url, {
+            method: "POST",
+            headers: {
+              "Accept": "application/json",
+              "Content-Type": "application/json",
+              "Authorization": token
+            },
+            body: JSON.stringify({
+                courseName : this.state.newCourse.courseName,
+                courseDescription: this.state.newCourse.courseDescription
+            })
+        }).then((res) => {
+            this.getData()
+            alert('Course Succesfully Registered')
+        })
+    }
+
+    handleChange = (event) => {
+        switch(event.target.name){
+            case 'CourseName':
+                this.setState(prevState => ({
+                    newCourse: {
+                        ...prevState.newCourse,
+                        courseName: event.target.value
+                    }
+                }));
+                break;
+            case 'CourseDescription':
+                this.setState(prevState => ({
+                    newCourse: {
+                        ...prevState.newCourse,
+                        courseDescription: event.target.value
+                    }
+                }));
+                break;
+        }
     }
 
     parseJwt (token) {
@@ -90,22 +140,38 @@ class TeacherComponent extends React.Component{
                 <div>
                     <h1>Welcome to Ocktank LMS Teacher Portal</h1>
                     <div>
-                    <table class="table caption-top table-striped">
+                        <table class="table caption-top table-striped">
                             <caption>List of Courses</caption>
-                                <thead>
-                                    <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Course ID</th>
-                                    <th scope="col">Teacher ID</th>
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Description</th>
-                                    <th scope="col">Detail</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="table-group-divider">
-                                    {renderedItems}
-                                </tbody>
-                            </table>
+                            <thead>
+                                <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Course ID</th>
+                                <th scope="col">Teacher ID</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Description</th>
+                                <th scope="col">Detail</th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-group-divider">
+                                {renderedItems}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                        <h3>Register a new Course</h3>
+                        <form onSubmit={this.handleSubmit}>
+                            <div class="form-group">
+                                <label for="InputCourseName">Course Name</label>
+                                <input type="text" name="CourseName" class="form-control" id="InputCourseName" aria-describedby="Name" placeholder="Enter Course name" onChange={this.handleChange}/>
+                                <small id="Name" class="form-text text-muted">This name will be used in your costs reports.</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="InputCourseDescription">Course Description</label>
+                                <input type="text" name="CourseDescription" class="form-control" id="InputCourseDescription" aria-describedby="Description" placeholder="Enter Course description" onChange={this.handleChange}/>
+                                <small id="Description" class="form-text text-muted">Any relvant information!.</small>
+                            </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
                     </div>
                 </div>
             )
