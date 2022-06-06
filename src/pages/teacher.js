@@ -73,7 +73,7 @@ class TeacherComponent extends React.Component{
                 courseDescription: this.state.newCourse.courseDescription
             })
         }).then((res) => {
-            this.getData()
+            this.getCourses()
             alert('Course Succesfully Registered')
         })
     }
