@@ -1,4 +1,5 @@
 import React from "react";
+import { Modal } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
 
 class TeacherCourseDetailComponent extends React.Component {
@@ -10,7 +11,9 @@ class TeacherCourseDetailComponent extends React.Component {
             error: undefined,
             isLoaded: false,
             students: [],
-            courseInfo: undefined
+            courseInfo: undefined,
+            showModal: false,
+            currentStudent: undefined
         }
         this.getData = this.getData.bind(this);
     }
@@ -57,8 +60,22 @@ class TeacherCourseDetailComponent extends React.Component {
         )
     }
 
+    openModal(user){
+        this.setState({
+            currentStudent: user,
+            showModal: true
+        })
+        console.log(user)
+    }
+
+    hideModal(){
+        this.setState({
+            showModal:false
+        })
+    }
+
     render(){
-        const {id, error, isLoaded, courseInfo, students} = this.state;
+        const {id, error, isLoaded, courseInfo, students, showModal} = this.state;
         if (error) {
             return <div>Error: {error.message}</div>;
         } else if (!isLoaded) {
@@ -72,7 +89,7 @@ class TeacherCourseDetailComponent extends React.Component {
                         <td>{user.full_name}</td>
                         <td>{user.email}</td>
                         <td>{user.grade}</td>
-                        <td><button class="btn btn-primary" onClick={() => {}}>Grade Student</button></td>
+                        <td><button class="btn btn-primary" onClick={() => {this.openModal(user)}}>Grade Student</button></td>
                     </tr>
                 )
             })
@@ -98,29 +115,16 @@ class TeacherCourseDetailComponent extends React.Component {
                         </table>
                     </div>
 
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                    Launch demo modal
-                    </button>
-
-                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                ...
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Save changes</button>
-                            </div>
-                            </div>
-                        </div>
-                    </div>
+                    <Modal show={showModal} onHide={this.hideModal}>
+                        <Modal.Header>
+                            <Modal.Title>Hi</Modal.Title>
+                        </Modal.Header>
+                            <Modal.Body>The body</Modal.Body>
+                        <Modal.Footer>
+                            <button onClick={this.hideModal}>Cancel</button>
+                            <button>Save</button>
+                        </Modal.Footer>
+                    </Modal>
                 </div>
             )
         }
