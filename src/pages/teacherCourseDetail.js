@@ -68,9 +68,14 @@ class TeacherCourseDetailComponent extends React.Component {
         console.log(user)
     }
 
+    handleCancel = (event) =>{
+        event.preventDefault()
+        this.hideModal()
+    }
+
     hideModal(){
         this.setState({
-            showModal:false
+            showModal: false
         })
     }
 
@@ -121,7 +126,7 @@ class TeacherCourseDetailComponent extends React.Component {
                         </Modal.Header>
                             <Modal.Body>The body</Modal.Body>
                         <Modal.Footer>
-                            <button onClick={this.hideModal}>Cancel</button>
+                            <button onClick={this.handleCancel}>Cancel</button>
                             <button>Save</button>
                         </Modal.Footer>
                     </Modal>
