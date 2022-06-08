@@ -109,6 +109,10 @@ class TeacherComponent extends React.Component{
         return JSON.parse(jsonPayload);
     };
 
+    handleNavigate = (id) => {
+        this.props.navigate('/courseDetail', { state : {courseId: id}})
+    }
+
     render(){
         const { error, isLoaded, courses, tokenDecoded } = this.state;
         if (tokenDecoded == null){
