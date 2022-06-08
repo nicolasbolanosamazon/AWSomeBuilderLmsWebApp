@@ -80,7 +80,7 @@ class TeacherCourseDetailComponent extends React.Component {
     }
 
     render(){
-        const {id, error, isLoaded, courseInfo, students, showModal} = this.state;
+        const {currentStudent, error, isLoaded, courseInfo, students, showModal} = this.state;
         if (error) {
             return <div>Error: {error.message}</div>;
         } else if (!isLoaded) {
@@ -122,12 +122,19 @@ class TeacherCourseDetailComponent extends React.Component {
 
                     <Modal show={showModal} onHide={this.hideModal}>
                         <Modal.Header>
-                            <Modal.Title>Hi</Modal.Title>
+                            <Modal.Title>Update Grade of {currentStudent.full_name}</Modal.Title>
                         </Modal.Header>
-                            <Modal.Body>The body</Modal.Body>
+                            <Modal.Body>
+                                <div class="input-group input-group-sm mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="inputGroup-sizing-sm">New Grade</span>
+                                    </div>
+                                    <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm"/>
+                                </div>
+                            </Modal.Body>
                         <Modal.Footer>
-                            <button onClick={this.handleCancel}>Cancel</button>
-                            <button>Save</button>
+                            <button class="btn btn-danger" onClick={this.handleCancel}>Cancel</button>
+                            <button class="btn btn-primary">Save</button>
                         </Modal.Footer>
                     </Modal>
                 </div>
