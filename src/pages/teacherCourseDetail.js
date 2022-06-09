@@ -122,7 +122,7 @@ class TeacherCourseDetailComponent extends React.Component {
 
                     <Modal show={showModal} onHide={this.hideModal}>
                         <Modal.Header>
-                            <Modal.Title>Update Grade of {currentStudent.full_name}</Modal.Title>
+                            <Modal.Title>Update Grade of {currentStudent != undefined? currentStudent.full_name: ''}</Modal.Title>
                         </Modal.Header>
                             <Modal.Body>
                                 <div class="input-group input-group-sm mb-3">
