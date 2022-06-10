@@ -73,7 +73,7 @@ class AdminComponent extends React.Component{
             })
         }).then((res) => {
             this.getData()
-            alert('Tenant Succesfully Registered')
+            alert('Tenant Succesfully Registered.\nPlease wait at least 10 minutes while DB intance is created')
         })
     }
 
