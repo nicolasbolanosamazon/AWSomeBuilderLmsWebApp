@@ -107,18 +107,20 @@ class AdminComponent extends React.Component{
     };
 
     render(){
+        /*
         if (this.tokenDecoded == null){
             return <div>You must be logged in to access this page</div>
         }
-        if(this.tokenDecoded['custom:tenant_user_role'] != 'Admin'){
-            return <div>This user doesn't have an Admin role. Access Denied</div>
-        }
+        */
         const { error, isLoaded, items } = this.state;
         if (error) {
             return <div>Error: {error.message}</div>;
         } else if (!isLoaded) {
             return <div>Loading...</div>;
         } else {
+            if(this.tokenDecoded['custom:tenant_user_role'] != 'Admin'){
+                return <div>This user doesn't have an Admin role. Access Denied</div>
+            }
             let renderedItems = items.map((row, index) =>{
                 return (
                     <tr>
