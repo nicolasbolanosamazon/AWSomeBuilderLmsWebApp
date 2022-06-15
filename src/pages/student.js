@@ -14,7 +14,7 @@ class StudentComponent extends React.Component{
     render(){
         return(
             <>
-                <h1>Hello Nicolas</h1>
+                <h1>Hello Student</h1>
             </>
         )
     }
